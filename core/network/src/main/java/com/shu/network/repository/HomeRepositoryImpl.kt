@@ -23,7 +23,8 @@ class HomeRepositoryImpl @Inject constructor(
 
         return coroutineScope {
 
-            val listTitle = mutableListOf("Platforms", "Популярное", "Топ 250", "", "", "Сериалы")
+            val listTitle =
+                mutableListOf("Platforms", "Popular", "Released", "Metacritic", "", "Сериалы")
 
 
             val date = Date()
@@ -37,11 +38,22 @@ class HomeRepositoryImpl @Inject constructor(
 
             val listPlatforms =
                 async { getPlatforms(params = QueryParameters()).results.map { it.mapFromApi() } }
+            val listPopular =
+                async { getOrdering(params = QueryParameters(ordering = "added")).results.map { it.mapFromApi() } }
+
+            val listRating =
+                async { getOrdering(params = QueryParameters(ordering = "released")).results.map { it.mapFromApi() } }
+
+            val listMetacritic =
+                async { getOrdering(params = QueryParameters(ordering = "metacritic")).results.map { it.mapFromApi() } }
 
 
             return@coroutineScope ManyScreens(
                 homeListScreen = listOf(
                     listPlatforms.await(),
+                    listPopular.await(),
+                    listRating.await(),
+                    listMetacritic.await(),
                 ),
                 listTitle = listTitle.toList(),
             )
@@ -57,6 +69,14 @@ class HomeRepositoryImpl @Inject constructor(
             page = params.page,
             number = params.pageSize,
             platforms = params.platforms
+        )
+    }
+
+    private suspend fun getOrdering(params: QueryParameters): PagedResponseDto {
+        return api.gamesPopular(
+            page = params.page,
+            number = params.pageSize,
+            ordering = params.ordering
         )
     }
 }

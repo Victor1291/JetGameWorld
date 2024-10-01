@@ -36,8 +36,8 @@ fun ItemCard(
         ),
         modifier = Modifier
             .padding(4.dp)
-            .width(130.dp)
-            .height(220.dp)
+            .width(170.dp)
+            .height(170.dp)
             .clickable { gameItem.id?.let { onItemClick(it) } },
 
         ) {
