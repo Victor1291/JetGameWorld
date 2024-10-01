@@ -21,10 +21,11 @@ fun RPlatforms.mapFromApi(): Game {
         Game(
             id = id,
             title = name ?: "NoName",
-            released = yearStart ?: "NoDate",
+            released = yearStart ?: "",
             backgroundImage = imageBackground,
             added = 1,
-            rating = 8.0
+            rating = 8.0,
+            games = games.map { it.mapFromApi() }
         )
     }
 }

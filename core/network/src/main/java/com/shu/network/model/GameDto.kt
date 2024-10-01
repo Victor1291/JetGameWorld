@@ -21,7 +21,8 @@ fun GameDto.mapFromApi(): Game {
             released = released,
             backgroundImage = image,
             added = added,
-            rating = rating
+            rating = rating,
+            games = emptyList()
         )
     }
 }

@@ -47,7 +47,8 @@ fun ResultsDto.mapFromApi(): Game {
             released = released ?: "",
             backgroundImage = backgroundImage,
             added = added,
-            rating = rating
+            rating = rating,
+            games = emptyList()
         )
     }
 }
