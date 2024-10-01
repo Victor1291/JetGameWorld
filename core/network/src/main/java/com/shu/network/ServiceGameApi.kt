@@ -3,6 +3,7 @@ package  com.shu.network
 import com.shu.network.model.GameDetailsDto
 import com.shu.network.model.ScreenshotsResponse
 import com.shu.network.model.base.PagedResponse
+import com.shu.network.models2.PagedResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -22,8 +23,15 @@ interface ServiceGameApi {
     suspend fun gamesPlatforms(
         @Query("page") page: Int = 1,
         @Query("page_size") number: Int = 20,
+        @Query("platforms") platforms: String = "18",
+    ): PagedResponseDto
+
+    @GET("/api/games")
+    suspend fun games(
+        @Query("page") page: Int = 1,
+        @Query("page_size") number: Int = 20,
         @Query("platforms") platforms: String = "1",
-    ): PagedResponse
+    ): PagedResponseDto
 
     @GET("/api/games")
     suspend fun gamesAll(

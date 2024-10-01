@@ -18,7 +18,7 @@ fun LazyRowList(
     modifier: Modifier = Modifier,
     list: List<Game>,
     title: String,
-    onItemClick: (Long) -> Unit,
+    onItemClick: (Int) -> Unit,
     state: LazyListState = rememberLazyListState(),
     //onListClick: (FilmVip?) -> Unit,
 ) {

@@ -9,7 +9,7 @@ import com.shu.models.ManyScreens
 fun HomeScreen(
     manyScreens: ManyScreens,
     innerPadding: PaddingValues,
-    onItemClick: (Long) -> Unit,
+    onItemClick: (Int) -> Unit,
     //onListClick: (FilmVip?) -> Unit,
 ) {
 

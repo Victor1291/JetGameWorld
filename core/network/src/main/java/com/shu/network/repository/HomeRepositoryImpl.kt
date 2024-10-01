@@ -5,8 +5,8 @@ import com.shu.home.domain.HomeRepository
 import com.shu.models.ManyScreens
 import com.shu.models.QueryParameters
 import com.shu.network.ServiceGameApi
-import com.shu.network.model.base.PagedResponse
-import com.shu.network.model.mapFromApi
+import com.shu.network.models2.PagedResponseDto
+import com.shu.network.models2.mapFromApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import java.util.Calendar
@@ -52,7 +52,7 @@ class HomeRepositoryImpl @Inject constructor(
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
     }
 
-    private suspend fun getPlatforms(params: QueryParameters): PagedResponse {
+    private suspend fun getPlatforms(params: QueryParameters): PagedResponseDto {
         return api.gamesPlatforms(
             page = params.page,
             number = params.pageSize,

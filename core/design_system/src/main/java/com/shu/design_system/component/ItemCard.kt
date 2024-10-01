@@ -28,7 +28,7 @@ import com.shu.models.Game
 @Composable
 fun ItemCard(
     gameItem: Game,
-    onItemClick: (Long) -> Unit,
+    onItemClick: (Int) -> Unit,
 ) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
@@ -38,7 +38,7 @@ fun ItemCard(
             .padding(4.dp)
             .width(130.dp)
             .height(220.dp)
-            .clickable { onItemClick(gameItem.id) },
+            .clickable { gameItem.id?.let { onItemClick(it) } },
 
         ) {
         Box(
@@ -54,7 +54,7 @@ fun ItemCard(
             )
 
             Text(
-                text = "$gameItem.name",
+                text = gameItem.title,
                 lineHeight = 15.sp,
                 fontSize = 14.sp,
                 modifier = Modifier

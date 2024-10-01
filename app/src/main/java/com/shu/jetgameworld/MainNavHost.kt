@@ -57,9 +57,9 @@ fun MainNavHost(
             HomeCheckState(
                 innerPadding = innerPadding,
                 onItemClick = { id ->
-                   /* navController.navigate(
-                        route = "${NavigationScreens.DetailScreen.route}/${id}"
-                    )*/
+                    /* navController.navigate(
+                         route = "${NavigationScreens.DetailScreen.route}/${id}"
+                     )*/
                 },
 
                 /* onListClick = { vip ->

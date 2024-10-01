@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName
 import com.shu.models.Game
 
 data class GameDto(
-    @SerializedName("id") val id: Long,
+    @SerializedName("id") val id: Int?,
     @SerializedName("name") val name: String,
     @SerializedName("background_image") val image: String,
     @SerializedName("released") val released: String,
-    @SerializedName("added") val added: Long,
-    @SerializedName("rating") val rating: Float,
+    @SerializedName("added") val added: Int?,
+    @SerializedName("rating") val rating: Double,
 )
 
 
@@ -17,7 +17,7 @@ fun GameDto.mapFromApi(): Game {
     return with(this) {
         Game(
             id = id,
-            name = name,
+            title = name,
             released = released,
             backgroundImage = image,
             added = added,

@@ -12,7 +12,7 @@ import com.shu.design_system.state.LoadingScreen
 fun HomeCheckState(
     innerPadding: PaddingValues,
     viewModel: HomeViewModel = hiltViewModel(),
-    onItemClick: (Long) -> Unit,
+    onItemClick: (Int) -> Unit,
    // onListClick: (FilmVip?) -> Unit,
 ) {
     val viewState by viewModel.uiState.collectAsState()
