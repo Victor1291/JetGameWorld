@@ -21,4 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "JetGameWorld"
 include(":app")
- 
+include(":feature:network")
+include(":feature:home")
+include(":core:network")
+include(":core:models")
+include(":core:design_system")
