@@ -36,7 +36,7 @@ fun ItemCard(
         ),
         modifier = Modifier
             .padding(4.dp)
-            .width(170.dp)
+            .width(220.dp)
             .height(170.dp)
             .clickable { gameItem.id?.let { onItemClick(it) } },
 
@@ -58,10 +58,24 @@ fun ItemCard(
                 lineHeight = 15.sp,
                 fontSize = 14.sp,
                 modifier = Modifier
-                    .testTag("movie")
+                    .testTag("title")
                     .fillMaxWidth()
                     .background(Color.Transparent.copy(alpha = 0.3f))
                     .align(Alignment.BottomCenter)
+                    .padding(bottom = 4.dp),
+                color = Color.White,
+                textAlign = TextAlign.Center
+            )
+
+            Text(
+                text = "${gameItem.id}  ${gameItem.released}" ,
+                lineHeight = 12.sp,
+                fontSize = 12.sp,
+                modifier = Modifier
+                    .testTag("id")
+                    .fillMaxWidth()
+                    .background(Color.Transparent.copy(alpha = 0.3f))
+                    .align(Alignment.TopCenter)
                     .padding(bottom = 4.dp),
                 color = Color.White,
                 textAlign = TextAlign.Center

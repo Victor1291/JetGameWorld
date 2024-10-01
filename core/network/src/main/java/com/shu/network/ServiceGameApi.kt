@@ -8,48 +8,59 @@ import com.shu.network.models2.PagedResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.QueryMap
+
+const val SIZE = 30
 
 interface ServiceGameApi {
 
     @GET("/api/games")
-    suspend fun games(@QueryMap params: Map<String, String>): PagedResponse
-
-    @GET("/api/games")
-    suspend fun games0(
-
-    ): PagedResponse
-
-    @GET("/api/games")
     suspend fun gamesPlatforms(
         @Query("page") page: Int = 1,
-        @Query("page_size") number: Int = 20,
+        @Query("page_size") pageSize: Int = SIZE,
         @Query("platforms") platforms: String = "18",
     ): PagedResponseDto
 
     @GET("/api/games")
     suspend fun gamesPopular(
         @Query("page") page: Int = 1,
-        @Query("page_size") number: Int = 20,
+        @Query("page_size") pageSize: Int = SIZE,
         @Query("ordering") ordering: String = "name",
+    ): PagedResponseDto
+
+    @GET("/api/games")
+    suspend fun gamesDate(
+        @Query("page") page: Int = 1,
+        @Query("page_size") pageSize: Int = SIZE,
+        @Query("ordering") ordering: String = "name",
+        @Query("dates") dates: String = "1",
     ): PagedResponseDto
 
 
     @GET("/api/games")
     suspend fun games(
         @Query("page") page: Int = 1,
-        @Query("page_size") number: Int = 20,
+        @Query("page_size") pageSize: Int = SIZE,
         @Query("platforms") platforms: String = "1",
     ): PagedResponseDto
 
     //get ids of target platforms
-    @GET("/api/games")
-    suspend fun platforms(): ResponsePlatforms
+    @GET("/api/platforms")
+    suspend fun platforms(
+        @Query("page") page: Int = 1,
+        @Query("page_size") pageSize: Int = SIZE,
+        @Query("ordering") ordering: String = "name",
+        ): ResponsePlatforms
+
+    @GET("/api/developers")
+    suspend fun developers(
+        @Query("page") page: Int = 1,
+        @Query("page_size") pageSize: Int = SIZE,
+    ): ResponsePlatforms
 
     @GET("/api/games")
     suspend fun gamesAll(
         @Query("page") page: Int = 1,
-        @Query("page_size") number: Int = 20,
+        @Query("page_size") number: Int = SIZE,
         @Query("search") search: String = "",
         @Query("search_precise") searchPrecise: Boolean = false,
         @Query("search_exact") searchExact: Boolean = false,
