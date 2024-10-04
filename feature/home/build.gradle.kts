@@ -56,6 +56,9 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     ksp(libs.bundles.hilt.ksp)
 
+    //Paging
+    implementation("androidx.paging:paging-compose:3.3.2")
+
     //Coil
     implementation(libs.coil.compose)
 }

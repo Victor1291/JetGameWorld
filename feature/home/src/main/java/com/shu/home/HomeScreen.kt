@@ -3,7 +3,7 @@ package com.shu.home
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import com.shu.models.ManyScreens
+import com.shu.home.model.ManyScreens
 
 @Composable
 fun HomeScreen(
@@ -12,6 +12,8 @@ fun HomeScreen(
     onItemClick: (Int) -> Unit,
     //onListClick: (FilmVip?) -> Unit,
 ) {
+
+
 
     LazyColumn(contentPadding = innerPadding) {
 

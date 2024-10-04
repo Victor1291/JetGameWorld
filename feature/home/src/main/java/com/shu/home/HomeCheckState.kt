@@ -2,37 +2,53 @@ package com.shu.home
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.shu.design_system.state.ErrorScreen
-import com.shu.design_system.state.LoadingScreen
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.shu.home.model.ManyScreens
 
 @Composable
 fun HomeCheckState(
     innerPadding: PaddingValues,
     viewModel: HomeViewModel = hiltViewModel(),
     onItemClick: (Int) -> Unit,
-   // onListClick: (FilmVip?) -> Unit,
+    // onListClick: (FilmVip?) -> Unit,
 ) {
-    val viewState by viewModel.uiState.collectAsState()
 
-    when (viewState) {
-        is UiState.Loading -> LoadingScreen()
-        is UiState.Success -> {
-            with(viewState as UiState.Success) {
-                HomeScreen(
-                    innerPadding = innerPadding,
-                    manyScreens = manyScreens,
-                    onItemClick = onItemClick,
-                   // onListClick = onListClick
-                )
-            }
-        }
+    val listGamePlatforms = viewModel.listGamePlatforms.collectAsLazyPagingItems()
+    val listDevelopers = viewModel.listDevelopers.collectAsLazyPagingItems()
+    val listPlaystation = viewModel.listPlaystation.collectAsLazyPagingItems()
+    val listPopular = viewModel.listPopular.collectAsLazyPagingItems()
+    val listReleased = viewModel.listReleased.collectAsLazyPagingItems()
+    val listWaiting = viewModel.listWaiting.collectAsLazyPagingItems()
+    val listLastYear = viewModel.listLastYear.collectAsLazyPagingItems()
 
-        is UiState.Error -> ErrorScreen(
-            message = (viewState as UiState.Error).message,
-            retryAction = { viewModel.retry() },
-        )
-    }
+
+    HomeScreen(
+        innerPadding = innerPadding,
+        manyScreens = ManyScreens(
+            homeListScreen = listOf(
+                listGamePlatforms,
+                listDevelopers,
+                listPlaystation,
+                listPopular,
+                listReleased,
+                listWaiting,
+                listLastYear
+            ),
+            listTitle = listOf(
+                "Platforms",
+                "Developers",
+                "Playstation 4",
+                "Popular",
+                "Released",
+                "Awaiting",
+                "Last Year",
+            )
+        ),
+        onItemClick = onItemClick,
+        // onListClick = onListClick
+    )
 }
+
+
+

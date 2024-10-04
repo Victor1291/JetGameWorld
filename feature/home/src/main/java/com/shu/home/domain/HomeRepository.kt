@@ -1,11 +1,12 @@
 package com.shu.home.domain
 
 
-import com.shu.models.ManyScreens
+import androidx.paging.Pager
+import com.shu.models.ETitle
+import com.shu.models.Game
+import com.shu.models.QueryParameters
 
 interface HomeRepository {
-
-    suspend fun getAllNewScreen(): ManyScreens
-
+    fun getOrdering(params: QueryParameters, title: ETitle): Pager<Int, Game>
 
 }
