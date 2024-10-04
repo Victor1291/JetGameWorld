@@ -3,7 +3,7 @@ package com.shu.network.models2
 import com.google.gson.annotations.SerializedName
 
 
-data class Ratings (
+data class RatingsDto (
 
   @SerializedName("id"      ) var id      : Int?    = null,
   @SerializedName("title"   ) var title   : String? = null,

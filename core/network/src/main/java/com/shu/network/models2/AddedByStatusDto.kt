@@ -3,7 +3,7 @@ package com.shu.network.models2
 import com.google.gson.annotations.SerializedName
 
 
-data class AddedByStatus (
+data class AddedByStatusDto (
 
   @SerializedName("yet"     ) var yet     : Int? = null,
   @SerializedName("owned"   ) var owned   : Int? = null,
