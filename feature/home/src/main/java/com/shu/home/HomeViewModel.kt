@@ -46,7 +46,7 @@ class HomeViewModel @Inject constructor(
         listPlaystation = repository.getOrdering(
             params = QueryParameters(
                 platforms = "18"
-            ), title = ETitle.Developers
+            ), title = ETitle.Playstation
         ).flow.cachedIn(viewModelScope)
 
         listPopular = repository.getOrdering(
@@ -63,9 +63,8 @@ class HomeViewModel @Inject constructor(
 
         listWaiting = repository.getOrdering(
             params = QueryParameters(
-                ordering = "added",
-                dates = "2024-10-01,2025-10-01"
-            ), title = ETitle.Awaiting
+                platforms = "7"
+            ), title = ETitle.Playstation
         ).flow.cachedIn(viewModelScope)
 
         listLastYear = repository.getOrdering(

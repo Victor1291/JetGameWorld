@@ -23,7 +23,7 @@ class GamePagingSource(
             when (title) {
                 ETitle.Platforms -> serviceGameApi.platforms(page = page).results.map { it.mapFromApi() }
                 ETitle.Developers -> serviceGameApi.developers(page = page).results.map { it.mapFromApi() }
-                ETitle.Playstation -> serviceGameApi.gamesPlatforms( page = page, platforms = "18" ).results.map { it.mapFromApi() }
+                ETitle.Playstation -> serviceGameApi.gamesPlatforms( page = page, platforms = parameters.platforms ).results.map { it.mapFromApi() }
                 ETitle.Popular -> serviceGameApi.gamesPopular(page = page, ordering = "added").results.map { it.mapFromApi() }
                 ETitle.Released -> serviceGameApi.gamesPopular(page = page, ordering = "released").results.map { it.mapFromApi() }
                 else -> serviceGameApi.gamesDate(

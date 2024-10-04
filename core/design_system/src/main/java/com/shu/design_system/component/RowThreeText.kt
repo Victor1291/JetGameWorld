@@ -37,8 +37,8 @@ fun RowThreeText(
 
         Text(
             text = rating,
-            fontSize = 24.sp,
-            modifier = Modifier.padding(8.dp),
+            fontSize = 14.sp,
+            modifier = Modifier.padding(start = 4.dp),
             color = MaterialTheme.colorScheme.primary
         )
 
@@ -46,17 +46,18 @@ fun RowThreeText(
 
             Text(
                 text = first,
-                fontSize = 18.sp,
-
+                fontSize = 14.sp,
+                maxLines = 1,
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(start = 8.dp),
+                modifier = Modifier.padding(start = 2.dp),
             )
 
             Text(
                 text = second,
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(start = 8.dp),
-                fontSize = 16.sp,
+                modifier = Modifier.padding(start = 2.dp),
+                fontSize = 14.sp,
+                maxLines = 1,
             )
 
         }

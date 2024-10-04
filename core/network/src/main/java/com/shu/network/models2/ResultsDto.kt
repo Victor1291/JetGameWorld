@@ -49,17 +49,17 @@ fun ResultsDto.mapFromApi(): Game {
             added = added,
             rating = rating,
             games = emptyList(),
-            platforms = platforms.map { it.mapFromApi() },
-            stores = stores.map { it.mapFromApi() },
+            platforms = platforms.joinToString(",") { it.platform?.name ?: "" },
+            //stores = stores.map { it.mapFromApi() },
             clip = clip,
-            tags = tags.map { it.mapFromApi() },
+           // tags = tags.map { it.mapFromApi() },
             userGame = userGame,
             reviewsCount = reviewsCount,
             saturatedColor = saturatedColor,
             dominantColor = dominantColor,
             shortScreenshots = shortScreenshots.map { it.mapFromApi() },
-            parentPlatforms = parentPlatforms.map { it.mapFromApi() },
-            genres = genres.map { it.mapFromApi() },
+           // parentPlatforms = parentPlatforms.map { it.mapFromApi() },
+            genres = genres.joinToString(",") { it.name ?: "" },
         )
     }
 }

@@ -41,7 +41,7 @@ fun HomeCheckState(
                 "Playstation 4",
                 "Popular",
                 "Released",
-                "Awaiting",
+                "Nintendo Switch",
                 "Last Year",
             )
         ),
