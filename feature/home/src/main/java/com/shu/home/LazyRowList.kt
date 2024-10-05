@@ -1,5 +1,6 @@
 package com.shu.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -48,6 +49,9 @@ fun LazyRowList(
     list: LazyPagingItems<Game>,
     title: String,
     onItemClick: (Int) -> Unit,
+    onGenreClick: (Int, String) -> Unit,
+    onPlatformClick: (Int, String) -> Unit,
+    num: Int,
     state: LazyGridState = rememberLazyGridState(),
     state2: LazyListState = rememberLazyListState(),
     state3: LazyListState = rememberLazyListState(),
@@ -81,63 +85,8 @@ fun LazyRowList(
 
         RowTwoText(
             first = title,
-            second = "All",
+            second = list.itemCount.toString(),
             onClick = { })
-
-        LazyHorizontalGrid(
-            rows = GridCells.Fixed(2),
-            contentPadding = PaddingValues(4.dp),
-            modifier = modifier.height(370.dp),
-            state = state
-        ) {
-
-            if (list.loadState.refresh == LoadState.Loading) {
-                item {
-                    Text(
-                        text = "Waiting for items to load from the backend",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(Alignment.CenterHorizontally)
-                    )
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(Alignment.CenterHorizontally)
-                    )
-                }
-            }
-
-            items(count = list.itemCount) { index ->
-                val item = list[index]
-                if (item != null) {
-                    ItemCard(
-                        item,
-                        onItemClick = {
-                            listGames =
-                                if (listGames.isEmpty()) item.games else if (item.id != oldId) item.games else emptyList()
-                            game = if (item.genres.isNullOrBlank()) emptyList() else listOf(item)
-                            oldId = item.id ?: 0
-                            oldTitle = item.title
-                        })
-                }
-            }
-        }
-
-        if (listGames.isNotEmpty()) {
-
-            RowTwoText(
-                first = oldTitle,
-                second = list.itemCount.toString(),
-                onClick = { })
-
-            LazyRow(
-                contentPadding = PaddingValues(4.dp), modifier = modifier, state = state2
-            ) {
-                items(listGames) { game ->
-                    game.title?.let { ItemTextCard(it, onItemClick = { listGames = emptyList() }) }
-                }
-            }
-        }
 
         if (game.isNotEmpty()) {
             val g = game.first()
@@ -172,20 +121,87 @@ fun LazyRowList(
                 }
             }
 
-            /*LazyRow(
-                contentPadding = PaddingValues(4.dp), modifier = modifier, state = state4
-            ) {
-                items(g.tags) { pl ->
-                    pl.imageBackground?.let {
-                        ItemImageCard(
-                            image = it,
-                            id = pl.id ?: 0,
-                            title = pl.name ?: "",
-                            onItemClick = { game = emptyList() }
-                        )
-                    }
+        }
+
+        LazyHorizontalGrid(
+            rows = GridCells.Fixed(2),
+            contentPadding = PaddingValues(4.dp),
+            modifier = modifier.height(370.dp),
+            state = state
+        ) {
+
+            if (list.loadState.refresh == LoadState.Loading) {
+                item {
+                    Text(
+                        text = "Waiting for items to load from the backend",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentWidth(Alignment.CenterHorizontally)
+                    )
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentWidth(Alignment.CenterHorizontally)
+                    )
                 }
-            }*/
+            }
+
+
+
+            items(count = list.itemCount) { index ->
+                val item = list[index]
+                if (item != null) {
+                    ItemCard(
+                        item,
+                        onItemClick = {// Проверка на какой список нажата кнопка.
+                            when (num) {
+
+                                0 -> {
+                                    Log.d(
+                                        "clickLog",
+                                        "num = $num  click item ${item.id} ***************"
+                                    )
+                                    onGenreClick(item.id ?: 5, item.title)
+                                }
+
+                                1 -> {
+                                    Log.d(
+                                        "clickLog",
+                                        "num = $num  click item ${item.id}  ***************"
+                                    )
+                                    onPlatformClick(item.id ?: 7, item.title)
+                                }
+
+                                else -> {
+                                    listGames =
+                                        if (listGames.isEmpty()) item.games else if (item.id != oldId) item.games else emptyList()
+                                    game =
+                                        if (game.isEmpty()) listOf(item) else if (item.id != oldId) listOf(
+                                            item
+                                        ) else emptyList()
+                                    oldId = item.id ?: 0
+                                    oldTitle = item.title
+                                }
+                            }
+                        })
+                }
+            }
+        }
+
+        if (listGames.isNotEmpty()) {
+
+            RowTwoText(
+                first = oldTitle,
+                second = list.itemCount.toString(),
+                onClick = { })
+
+            LazyRow(
+                contentPadding = PaddingValues(4.dp), modifier = modifier, state = state2
+            ) {
+                items(listGames) { game ->
+                    game.title?.let { ItemTextCard(it, onItemClick = { listGames = emptyList() }) }
+                }
+            }
         }
     }
 }

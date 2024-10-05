@@ -1,5 +1,6 @@
 package  com.shu.network
 
+import com.shu.network.mPlatforms.ResponseGenres
 import com.shu.network.mPlatforms.ResponsePlatforms
 import com.shu.network.model.GameDetailsDto
 import com.shu.network.model.ScreenshotsResponse
@@ -9,7 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-const val SIZE = 30
+const val SIZE = 10
 
 interface ServiceGameApi {
 
@@ -35,6 +36,12 @@ interface ServiceGameApi {
         @Query("dates") dates: String = "1",
     ): PagedResponseDto
 
+    @GET("/api/games")
+    suspend fun gamesGenre(
+        @Query("page") page: Int = 1,
+        @Query("page_size") pageSize: Int = SIZE,
+        @Query("genres") genres: String = "1",
+    ): PagedResponseDto
 
     @GET("/api/games")
     suspend fun games(
@@ -56,6 +63,12 @@ interface ServiceGameApi {
         @Query("page") page: Int = 1,
         @Query("page_size") pageSize: Int = SIZE,
     ): ResponsePlatforms
+
+    @GET("/api/genres")
+    suspend fun getGenres(
+        @Query("page") page: Int = 1,
+        @Query("page_size") pageSize: Int = SIZE,
+    ): ResponseGenres
 
     @GET("/api/games")
     suspend fun gamesAll(

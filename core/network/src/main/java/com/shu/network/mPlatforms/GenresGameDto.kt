@@ -1,11 +1,12 @@
-package com.shu.network.models2
+package com.shu.network.mPlatforms
 
 import com.google.gson.annotations.SerializedName
+import com.shu.models.Game
 import com.shu.models.Genres
 import com.shu.models.Store
 
 
-data class GenresDto(
+data class GenresGameDto(
 
     @SerializedName("id") var id: Int? = null,
     @SerializedName("name") var name: String? = null,
@@ -14,17 +15,18 @@ data class GenresDto(
     @SerializedName("image_background") var imageBackground: String? = null,
     @SerializedName("description") var description: String? = null,
 
-)
+    )
 
-fun GenresDto.mapFromApi(): Genres {
+fun GenresGameDto.mapFromApi(): Game {
     return with(this) {
-        Genres(
+        Game(
             id = id,
-            name = name,
-            slug = slug,
-            gamesCount = gamesCount,
-            imageBackground = imageBackground,
-            description = description
+            title = name ?: "NoName",
+            released = "",
+            backgroundImage = imageBackground,
+            added = 1,
+            rating = 8.0,
+            games = emptyList()
         )
     }
 }

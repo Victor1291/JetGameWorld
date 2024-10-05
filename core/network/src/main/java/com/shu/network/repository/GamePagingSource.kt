@@ -21,8 +21,9 @@ class GamePagingSource(
         val page = params.key ?: FIRST_PAGE
         return kotlin.runCatching {
             when (title) {
+                ETitle.ChoiceGenre -> serviceGameApi.getGenres(page = page).results.map { it.mapFromApi() }
+                ETitle.Genres -> serviceGameApi.gamesGenre(page = page, genres = parameters.genres).results.map { it.mapFromApi() }
                 ETitle.Platforms -> serviceGameApi.platforms(page = page).results.map { it.mapFromApi() }
-                ETitle.Developers -> serviceGameApi.developers(page = page).results.map { it.mapFromApi() }
                 ETitle.Playstation -> serviceGameApi.gamesPlatforms( page = page, platforms = parameters.platforms ).results.map { it.mapFromApi() }
                 ETitle.Popular -> serviceGameApi.gamesPopular(page = page, ordering = "added").results.map { it.mapFromApi() }
                 ETitle.Released -> serviceGameApi.gamesPopular(page = page, ordering = "released").results.map { it.mapFromApi() }
