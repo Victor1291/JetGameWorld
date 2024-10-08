@@ -1,6 +1,7 @@
 package com.shu.network.models2
 
 import com.google.gson.annotations.SerializedName
+import com.shu.database.models.GameDbo
 import com.shu.models.Game
 
 
@@ -52,14 +53,33 @@ fun ResultsDto.mapFromApi(): Game {
             platforms = platforms.joinToString(",") { it.platform?.name ?: "" },
             //stores = stores.map { it.mapFromApi() },
             clip = clip,
-           // tags = tags.map { it.mapFromApi() },
+            // tags = tags.map { it.mapFromApi() },
             userGame = userGame,
             reviewsCount = reviewsCount,
             saturatedColor = saturatedColor,
             dominantColor = dominantColor,
             shortScreenshots = shortScreenshots.map { it.mapFromApi() },
-           // parentPlatforms = parentPlatforms.map { it.mapFromApi() },
+            // parentPlatforms = parentPlatforms.map { it.mapFromApi() },
             genres = genres.joinToString(",") { it.name ?: "" },
+        )
+    }
+}
+
+fun ResultsDto.mapFromApiToBd(page: Int): GameDbo {
+    return with(this) {
+        GameDbo(
+            id = id ?: 0,
+            title = name ?: "",
+            released = released ?: "",
+            backgroundImage = backgroundImage,
+            added = added,
+            rating = rating,
+            platforms = platforms.joinToString(",") { it.platform?.name ?: "" },
+            clip = clip,
+            userGame = userGame,
+            shortScreenshots = shortScreenshots.map { it.mapFromApiToBd() },
+            genres = genres.joinToString(",") { it.name ?: "" },
+            page = page
         )
     }
 }

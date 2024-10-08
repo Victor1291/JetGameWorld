@@ -1,0 +1,26 @@
+package com.shu.database.models
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.Collections
+
+/**
+таблица с коллекциями.
+ */
+@Entity(tableName = "collections")
+data class CollectionsDbo(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "collection_id")
+    var collectionId: Int = 0,
+    @ColumnInfo(name = "name")
+    var name: String? = null,
+    @ColumnInfo(name = "total")
+    var total: Int = 0,
+    @ColumnInfo(name = "icon")
+    var icon: Int = 1,
+)
+
+
+
+

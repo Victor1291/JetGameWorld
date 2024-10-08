@@ -23,3 +23,22 @@ class HomeRepositoryImpl @Inject constructor(
         ).flow
     }
 }
+
+/*
+
+  Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = 10,
+                initialLoadSize = PAGE_SIZE,
+            ),
+            pagingSourceFactory = {
+                moviesDatabase.getMoviesDao().getMovies()
+            },
+            remoteMediator = MoviesRemoteMediator(
+                moviesApiService,
+                moviesDatabase,
+            )
+        ).flow
+
+ */

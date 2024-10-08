@@ -40,6 +40,7 @@ android {
 
 dependencies {
 
+    implementation(project(":core:database"))
     implementation(project(":core:models"))
     implementation(project(mapOf("path" to ":feature:home")))
 
@@ -56,6 +57,7 @@ dependencies {
 
     //Paging
     implementation("androidx.paging:paging-compose:3.3.2")
+    implementation(libs.androidx.room.ktx)
 
     ksp(libs.hilt.android.compiler)
 
