@@ -58,6 +58,7 @@ dependencies {
     //Paging
     implementation("androidx.paging:paging-compose:3.3.2")
     implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     ksp(libs.hilt.android.compiler)
 

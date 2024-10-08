@@ -39,6 +39,7 @@ dependencies {
     //Room
     implementation(libs.bundles.room)
     implementation(libs.androidx.paging.common.android)
+    implementation(project(":core:models"))
     testImplementation("org.testng:testng:6.9.6")
     ksp(libs.androidx.room.compiler)
     implementation("androidx.room:room-paging:2.6.1")

@@ -1,9 +1,8 @@
 package com.shu.network.models2
 
 import com.google.gson.annotations.SerializedName
-import com.shu.database.models.ShortScreenshotsDbo
+import com.shu.models.ShortScreenshotsDbo
 import com.shu.models.ShortScreenshots
-import com.shu.models.Store
 
 
 data class ShortScreenshotsDto(

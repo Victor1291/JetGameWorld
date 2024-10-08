@@ -1,4 +1,4 @@
-package com.shu.database.models
+package com.shu.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

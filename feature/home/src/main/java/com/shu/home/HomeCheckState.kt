@@ -25,6 +25,7 @@ fun HomeCheckState(
             listOf(
                 "Choice Genre",
                 "Choice Platform",
+                "All Games",
                 "Playstation 4",
                 "Popular",
                 "Released",
@@ -34,25 +35,28 @@ fun HomeCheckState(
         )
     }
 
-    val choiceGenre = viewModel.choiceGenre.collectAsLazyPagingItems()
+    //val choiceGenre = viewModel.choiceGenre.collectAsLazyPagingItems()
 
-    val listGamePlatforms = viewModel.listGamePlatforms.collectAsLazyPagingItems()
+    val listAllGame = viewModel.listAllGame.collectAsLazyPagingItems()
+
+   /* val listGamePlatforms = viewModel.listGamePlatforms.collectAsLazyPagingItems()
     val listPlaystation = viewModel.listPlaystation.collectAsLazyPagingItems()
     val listPopular = viewModel.listPopular.collectAsLazyPagingItems()
     val listReleased = viewModel.listReleased.collectAsLazyPagingItems()
     val listWaiting = viewModel.listWaiting.collectAsLazyPagingItems()
-    val listLastYear = viewModel.listLastYear.collectAsLazyPagingItems()
+    val listLastYear = viewModel.listLastYear.collectAsLazyPagingItems()*/
 
     val homeListScreen by remember {
         mutableStateOf(
             listOf(
-                choiceGenre,
-                listGamePlatforms,
-                listPlaystation,
-                listPopular,
-                listReleased,
-                listWaiting,
-                listLastYear
+//                choiceGenre,
+//                listGamePlatforms,
+                listAllGame,
+//                listPlaystation,
+//                listPopular,
+//                listReleased,
+//                listWaiting,
+//                listLastYear
             )
         )
     }
@@ -67,10 +71,10 @@ fun HomeCheckState(
         onItemClick = onItemClick,
         onGenreClick = { id, title ->
             Log.d("genrecheck", "ID =  $id  and title = $title")
-            viewModel.setGenre(id)
+           // viewModel.setGenre(id)
         },
         onPlatformClick = { id, title ->
-            viewModel.setPlatform(id)
+            //viewModel.setPlatform(id)
         },
 
         // onListClick = onListClick

@@ -1,5 +1,6 @@
 package com.shu.network.di
 
+import com.shu.database.GameDatabase
 import com.shu.home.domain.HomeRepository
 import com.shu.network.ServiceGameApi
 import com.shu.network.repository.HomeRepositoryImpl
@@ -15,9 +16,9 @@ class DomainModule {
     @Provides
     fun providesRepository(
         api: ServiceGameApi,
-       // dao: MovieDao
+        base: GameDatabase
     ): HomeRepository {
-        return HomeRepositoryImpl(api)
+        return HomeRepositoryImpl(api, base)
     }
 
 }

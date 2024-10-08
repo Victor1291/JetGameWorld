@@ -1,6 +1,5 @@
 package com.shu.home
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,7 +37,7 @@ import com.shu.design_system.component.ItemImageCard
 import com.shu.design_system.component.ItemTextCard
 import com.shu.design_system.component.RowThreeText
 import com.shu.design_system.component.RowTwoText
-import com.shu.models.Game
+import com.shu.models.GameDbo
 import com.shu.models.GameShort
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -46,7 +45,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun LazyRowList(
     modifier: Modifier = Modifier,
-    list: LazyPagingItems<Game>,
+    list: LazyPagingItems<GameDbo>,
     title: String,
     onItemClick: (Int) -> Unit,
     onGenreClick: (Int, String) -> Unit,
@@ -60,7 +59,7 @@ fun LazyRowList(
 ) {
 
     var listGames by remember { mutableStateOf(emptyList<GameShort>()) }
-    var game by remember { mutableStateOf(emptyList<Game>()) }
+    var game by remember { mutableStateOf(emptyList<GameDbo>()) }
     var oldId by remember { mutableIntStateOf(0) } //для проверки нажатия на другой айтем.
     var oldTitle by remember { mutableStateOf("") } //для проверки нажатия на другой айтем.
 
@@ -154,7 +153,15 @@ fun LazyRowList(
                     ItemCard(
                         item,
                         onItemClick = {// Проверка на какой список нажата кнопка.
-                            when (num) {
+
+                            game =
+                                if (game.isEmpty()) listOf(item) else if (item.id != oldId) listOf(
+                                    item
+                                ) else emptyList()
+                            oldId = item.id ?: 0
+                            oldTitle = item.title
+
+                            /*when (num) {
 
                                 0 -> {
                                     Log.d(
@@ -172,17 +179,17 @@ fun LazyRowList(
                                     onPlatformClick(item.id ?: 7, item.title)
                                 }
 
-                                else -> {
-                                    listGames =
-                                        if (listGames.isEmpty()) item.games else if (item.id != oldId) item.games else emptyList()
-                                    game =
-                                        if (game.isEmpty()) listOf(item) else if (item.id != oldId) listOf(
-                                            item
-                                        ) else emptyList()
-                                    oldId = item.id ?: 0
-                                    oldTitle = item.title
-                                }
-                            }
+//                                else -> {
+//                                    listGames =
+//                                        if (listGames.isEmpty()) item.games else if (item.id != oldId) item.games else emptyList()
+//                                    game =
+//                                        if (game.isEmpty()) listOf(item) else if (item.id != oldId) listOf(
+//                                            item
+//                                        ) else emptyList()
+//                                    oldId = item.id ?: 0
+//                                    oldTitle = item.title
+//                                }
+                            }*/
                         })
                 }
             }

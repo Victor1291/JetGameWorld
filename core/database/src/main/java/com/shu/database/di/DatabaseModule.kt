@@ -26,7 +26,7 @@ class DatabaseModule {
         ).fallbackToDestructiveMigration().build()
 
     @Provides
-    fun provideWeatherDao(appDatabase: GameDatabase): GameDao {
+    fun provideGameDao(appDatabase: GameDatabase): GameDao {
         return appDatabase.getGameDao()
     }
 

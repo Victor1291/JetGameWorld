@@ -5,16 +5,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.shu.database.models.GameDbo
+import com.shu.models.GameDbo
 
 @Dao
 interface GameDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(games: List<GameDbo>)
+    suspend fun insertAll(games: List<com.shu.models.GameDbo>)
 
     @Query("Select * From games Order By page")
-    fun getGames(): PagingSource<Int, GameDbo>
+    fun getGames(): PagingSource<Int, com.shu.models.GameDbo>
 
     @Query("Delete From games")
     suspend fun clearAllGames()

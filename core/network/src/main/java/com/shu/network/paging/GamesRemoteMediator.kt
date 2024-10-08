@@ -6,20 +6,19 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.shu.database.GameDatabase
+import com.shu.models.GameDbo
 import com.shu.database.models.RemoteKeys
-import com.shu.models.Game
 import com.shu.network.ServiceGameApi
 import com.shu.network.models2.mapFromApiToBd
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class GamesRemoteMediator @Inject constructor(
+class GamesRemoteMediator (
     private val serviceGameApi: ServiceGameApi,
     private val gameDatabase: GameDatabase
-) : RemoteMediator<Int, Game>() {
+) : RemoteMediator<Int, GameDbo>() {
 
     override suspend fun initialize(): InitializeAction {
         val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
@@ -33,7 +32,7 @@ class GamesRemoteMediator @Inject constructor(
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, Game>
+        state: PagingState<Int, GameDbo>
     ): MediatorResult {
         val page: Int = when (loadType) {
             LoadType.REFRESH -> {
@@ -85,7 +84,7 @@ class GamesRemoteMediator @Inject constructor(
         }
     }
 
-    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, Game>): RemoteKeys? {
+    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, GameDbo>): RemoteKeys? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
                 gameDatabase.getRemoteKeysDao().getRemoteKeyByGameID(id)
@@ -93,19 +92,19 @@ class GamesRemoteMediator @Inject constructor(
         }
     }
 
-    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, Game>): RemoteKeys? {
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, GameDbo>): RemoteKeys? {
         return state.pages.firstOrNull {
             it.data.isNotEmpty()
         }?.data?.firstOrNull()?.let { game ->
-            gameDatabase.getRemoteKeysDao().getRemoteKeyByGameID(game.id ?: 0)
+            gameDatabase.getRemoteKeysDao().getRemoteKeyByGameID(game.id)
         }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, Game>): RemoteKeys? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, GameDbo>): RemoteKeys? {
         return state.pages.lastOrNull {
             it.data.isNotEmpty()
         }?.data?.lastOrNull()?.let { game ->
-            gameDatabase.getRemoteKeysDao().getRemoteKeyByGameID(game.id ?: 0)
+            gameDatabase.getRemoteKeysDao().getRemoteKeyByGameID(game.id)
         }
     }
 

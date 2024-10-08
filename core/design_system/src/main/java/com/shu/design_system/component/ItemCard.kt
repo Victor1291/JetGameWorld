@@ -24,10 +24,11 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.shu.models.Game
+import com.shu.models.GameDbo
 
 @Composable
 fun ItemCard(
-    gameItem: Game,
+    gameItem: GameDbo,
     onItemClick: (Int) -> Unit,
 ) {
     ElevatedCard(

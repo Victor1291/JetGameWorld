@@ -4,9 +4,9 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.shu.database.converters.ScreenshotsConverter
-import com.shu.database.models.GameDbo
+import com.shu.models.GameDbo
 import com.shu.database.models.RemoteKeys
-import com.shu.database.models.ShortScreenshotsDbo
+import com.shu.models.ShortScreenshotsDbo
 
 @Database(
     entities = [
