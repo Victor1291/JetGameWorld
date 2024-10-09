@@ -19,7 +19,7 @@ data class RPlatforms(
 fun RPlatforms.mapFromApi(): Game {
     return with(this) {
         Game(
-            id = id,
+            id = id ?: 1,
             title = name ?: "NoName",
             released = yearStart ?: "",
             backgroundImage = imageBackground,

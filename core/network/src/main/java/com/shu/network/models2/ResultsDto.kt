@@ -1,7 +1,7 @@
 package com.shu.network.models2
 
 import com.google.gson.annotations.SerializedName
-import com.shu.models.GameDbo
+import com.shu.database.models.GameDbo
 import com.shu.models.Game
 
 
@@ -43,7 +43,7 @@ data class ResultsDto(
 fun ResultsDto.mapFromApi(): Game {
     return with(this) {
         Game(
-            id = id,
+            id = id ?: 1,
             title = name ?: "",
             released = released ?: "",
             backgroundImage = backgroundImage,

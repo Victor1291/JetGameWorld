@@ -20,7 +20,7 @@ data class GenresGameDto(
 fun GenresGameDto.mapFromApi(): Game {
     return with(this) {
         Game(
-            id = id,
+            id = id ?: 1,
             title = name ?: "NoName",
             released = "",
             backgroundImage = imageBackground,

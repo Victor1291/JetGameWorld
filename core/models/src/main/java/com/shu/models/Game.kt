@@ -1,7 +1,7 @@
 package com.shu.models
 
 data class Game(
-    val id: Int?,
+    val id: Int,
     val title: String,
     val released: String,
     val backgroundImage: String?,
@@ -19,4 +19,5 @@ data class Game(
     var shortScreenshots : List<ShortScreenshots> = listOf(),
    // var parentPlatforms  : List<ParentPlatforms>  = listOf(),
     var genres           : String?                     = null,
+    var page           : Int?                     = null,
 )

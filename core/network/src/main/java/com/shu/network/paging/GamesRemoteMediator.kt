@@ -6,7 +6,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.shu.database.GameDatabase
-import com.shu.models.GameDbo
+import com.shu.database.models.GameDbo
 import com.shu.database.models.RemoteKeys
 import com.shu.network.ServiceGameApi
 import com.shu.network.models2.mapFromApiToBd

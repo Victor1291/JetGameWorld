@@ -7,12 +7,9 @@ import androidx.paging.cachedIn
 import com.shu.home.domain.HomeRepository
 import com.shu.models.ETitle
 import com.shu.models.Game
-import com.shu.models.GameDbo
 import com.shu.models.QueryParameters
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
@@ -23,7 +20,7 @@ class HomeViewModel @Inject constructor(
     private val repository: HomeRepository
 ) : ViewModel() {
 
-//    val choiceGenre: Flow<PagingData<Game>> = repository.getOrdering(
+    //    val choiceGenre: Flow<PagingData<Game>> = repository.getOrdering(
 //        params = QueryParameters(), title = ETitle.ChoiceGenre
 //    ).cachedIn(viewModelScope)
 //    var listOfGenre: Flow<PagingData<Game>>
@@ -34,7 +31,7 @@ class HomeViewModel @Inject constructor(
 //    val listReleased: Flow<PagingData<Game>>
 //    val listWaiting: Flow<PagingData<Game>>
 //    val listLastYear: Flow<PagingData<Game>>
-    val listAllGame: Flow<PagingData<GameDbo>>
+    val listAllGame: Flow<PagingData<Game>>
 
 //    private var _genre = MutableStateFlow("1")
 //    private val genre = _genre.asStateFlow()

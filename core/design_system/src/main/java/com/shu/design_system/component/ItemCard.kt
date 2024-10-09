@@ -24,11 +24,10 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.shu.models.Game
-import com.shu.models.GameDbo
 
 @Composable
 fun ItemCard(
-    gameItem: GameDbo,
+    gameItem: Game,
     onItemClick: (Int) -> Unit,
 ) {
     ElevatedCard(
@@ -39,7 +38,7 @@ fun ItemCard(
             .padding(4.dp)
             .width(220.dp)
             .height(170.dp)
-            .clickable { gameItem.id?.let { onItemClick(it) } },
+            .clickable { gameItem.id.let { onItemClick(it) } },
 
         ) {
         Box(
@@ -69,7 +68,7 @@ fun ItemCard(
             )
 
             Text(
-                text = "${gameItem.id}  ${gameItem.released}" ,
+                text = "${gameItem.id}  ${gameItem.released} page ${gameItem.page}",
                 lineHeight = 12.sp,
                 fontSize = 12.sp,
                 modifier = Modifier
