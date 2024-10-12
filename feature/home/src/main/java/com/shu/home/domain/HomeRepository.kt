@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface HomeRepository {
     fun getOrdering(params: QueryParameters, title: ETitle): Flow<PagingData<Game>>
-    fun getOrderingCash(params: QueryParameters, title: ETitle): Flow<PagingData<Game>>
+    fun getOrderingCash(params: QueryParameters, title: ETitle,isSkipRefresh:Boolean): Flow<PagingData<Game>>
 
 
 }

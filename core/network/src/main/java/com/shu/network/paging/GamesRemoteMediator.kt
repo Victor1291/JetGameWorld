@@ -8,6 +8,8 @@ import androidx.room.withTransaction
 import com.shu.database.GameDatabase
 import com.shu.database.models.GameDbo
 import com.shu.database.models.RemoteKeys
+import com.shu.models.ETitle
+import com.shu.models.QueryParameters
 import com.shu.network.ServiceGameApi
 import com.shu.network.models2.mapFromApiToBd
 import retrofit2.HttpException
@@ -17,13 +19,16 @@ import java.util.concurrent.TimeUnit
 @OptIn(ExperimentalPagingApi::class)
 class GamesRemoteMediator (
     private val serviceGameApi: ServiceGameApi,
-    private val gameDatabase: GameDatabase
+    private val gameDatabase: GameDatabase,
+    private val parameters: QueryParameters,
+    private val title: ETitle,
+    private val isSkipRefresh: Boolean = true
 ) : RemoteMediator<Int, GameDbo>() {
 
     override suspend fun initialize(): InitializeAction {
         val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
 
-        return if (System.currentTimeMillis() - (gameDatabase.getRemoteKeysDao().getCreationTime() ?: 0) < cacheTimeout) {
+        return if (System.currentTimeMillis() - (gameDatabase.getRemoteKeysDao().getCreationTime() ?: 0) < cacheTimeout && isSkipRefresh) {
             InitializeAction.SKIP_INITIAL_REFRESH
         } else {
             InitializeAction.LAUNCH_INITIAL_REFRESH
@@ -52,7 +57,7 @@ class GamesRemoteMediator (
         }
 
         try {
-            val apiResponse = serviceGameApi.games(page = page)
+            val apiResponse = serviceGameApi.gamesGenre(page = page, genres = parameters.genres)
 
             val games = apiResponse.results
             val endOfPaginationReached = games.isEmpty()

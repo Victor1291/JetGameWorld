@@ -10,6 +10,8 @@ import com.shu.models.Game
 import com.shu.models.QueryParameters
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
@@ -20,24 +22,24 @@ class HomeViewModel @Inject constructor(
     private val repository: HomeRepository
 ) : ViewModel() {
 
-    //    val choiceGenre: Flow<PagingData<Game>> = repository.getOrdering(
-//        params = QueryParameters(), title = ETitle.ChoiceGenre
-//    ).cachedIn(viewModelScope)
-//    var listOfGenre: Flow<PagingData<Game>>
-//    var listOfPlatform: Flow<PagingData<Game>>
-//    val listGamePlatforms: Flow<PagingData<Game>>
-//    val listPlaystation: Flow<PagingData<Game>>
-//    val listPopular: Flow<PagingData<Game>>
-//    val listReleased: Flow<PagingData<Game>>
-//    val listWaiting: Flow<PagingData<Game>>
-//    val listLastYear: Flow<PagingData<Game>>
-    val listAllGame: Flow<PagingData<Game>>
+        val choiceGenre: Flow<PagingData<Game>> = repository.getOrdering(
+        params = QueryParameters(), title = ETitle.ChoiceGenre
+    ).cachedIn(viewModelScope)
+    var listOfGenre: Flow<PagingData<Game>>
+    var listOfPlatform: Flow<PagingData<Game>>
+    val listGamePlatforms: Flow<PagingData<Game>>
+    val listPlaystation: Flow<PagingData<Game>>
+    val listPopular: Flow<PagingData<Game>>
+    val listReleased: Flow<PagingData<Game>>
+    val listWaiting: Flow<PagingData<Game>>
+    val listLastYear: Flow<PagingData<Game>>
+   // val listGameWithCashes: Flow<PagingData<Game>>
 
-//    private var _genre = MutableStateFlow("1")
-//    private val genre = _genre.asStateFlow()
-//
-//    private var _platform = MutableStateFlow("1")
-//    private val platform = _platform.asStateFlow()
+    private var _genre = MutableStateFlow("1")
+    private val genre = _genre.asStateFlow()
+
+    private var _platform = MutableStateFlow("1")
+    private val platform = _platform.asStateFlow()
 
     private var listTitle = mutableListOf(
         "Choice Genre",
@@ -52,51 +54,52 @@ class HomeViewModel @Inject constructor(
 
     init {
 
-        listAllGame = repository.getOrderingCash(
+      /*  listGameWithCashes = repository.getOrderingCash(
+            params = QueryParameters(
+                ordering = "added"
+            ), title = ETitle.Platforms
+        ).cachedIn(viewModelScope)*/
+
+        listGamePlatforms = repository.getOrdering(
             params = QueryParameters(
                 ordering = "added"
             ), title = ETitle.Platforms
         ).cachedIn(viewModelScope)
 
-//        listGamePlatforms = repository.getOrdering(
-//            params = QueryParameters(
-//                ordering = "added"
-//            ), title = ETitle.Platforms
-//        ).cachedIn(viewModelScope)
-//
-//        listPlaystation = repository.getOrdering(
-//            params = QueryParameters(
-//                platforms = "18"
-//            ), title = ETitle.Playstation
-//        ).cachedIn(viewModelScope)
-//
-//        listPopular = repository.getOrdering(
-//            params = QueryParameters(
-//                ordering = "added"
-//            ), title = ETitle.Popular
-//        ).cachedIn(viewModelScope)
-//
-//        listReleased = repository.getOrdering(
-//            params = QueryParameters(
-//                ordering = "released"
-//            ), title = ETitle.Released
-//        ).cachedIn(viewModelScope)
-//
-//        listWaiting = repository.getOrdering(
-//            params = QueryParameters(
-//                platforms = "7"
-//            ), title = ETitle.Playstation
-//        ).cachedIn(viewModelScope)
-//
-//        listLastYear = repository.getOrdering(
-//            params = QueryParameters(
-//                ordering = "added",
-//                dates = "2023-10-01,2024-10-01"
-//            ), title = ETitle.LastYear
-//        ).cachedIn(viewModelScope)
-//
-//        listOfGenre = getGenres(genre.value)
-//        listOfPlatform = getPlatform(platform.value)
+        listPlaystation = repository.getOrdering(
+            params = QueryParameters(
+                platforms = "18"
+            ), title = ETitle.Playstation
+        ).cachedIn(viewModelScope)
+
+        listPopular = repository.getOrdering(
+            params = QueryParameters(
+                ordering = "added"
+            ), title = ETitle.Popular
+        ).cachedIn(viewModelScope)
+
+        listReleased = repository.getOrdering(
+            params = QueryParameters(
+                ordering = "released"
+            ), title = ETitle.Released
+        ).cachedIn(viewModelScope)
+
+        listWaiting = repository.getOrdering(
+            params = QueryParameters(
+                platforms = "7"
+            ), title = ETitle.Playstation
+        ).cachedIn(viewModelScope)
+
+        listLastYear = repository.getOrdering(
+            params = QueryParameters(
+                ordering = "added",
+                dates = "2023-10-01,2024-10-01"
+            ), title = ETitle.LastYear
+        ).cachedIn(viewModelScope)
+
+      //  listOfGenre = getGenres(genre.value)
+        listOfGenre = getGenresCashed(genre.value)
+        listOfPlatform = getPlatform(platform.value)
 
     }
 
@@ -110,15 +113,23 @@ class HomeViewModel @Inject constructor(
         return if (month < 10) "$year-0$month-$day" else "$year-$month-$day"
     }
 
-//    fun setGenre(genreNew: Int) {
-//        _genre.value = genreNew.toString()
-//        listOfGenre = getGenres(genreNew.toString())
-//    }
+    fun setGenre(genreNew: Int) {
+        _genre.value = genreNew.toString()
+        listOfGenre = getGenresCashed(genreNew.toString())
+    }
 
     private fun getGenres(gen: String) = repository.getOrdering(
         params = QueryParameters(
             genres = gen
         ), title = ETitle.Genres
+    ).cachedIn(viewModelScope)
+
+    private fun getGenresCashed(gen: String) = repository.getOrderingCash(
+        params = QueryParameters(
+            genres = gen
+        ),
+        title = ETitle.Genres,
+        isSkipRefresh = false
     ).cachedIn(viewModelScope)
 
     private fun getPlatform(pl: String) = repository.getOrdering(
@@ -127,9 +138,9 @@ class HomeViewModel @Inject constructor(
         ), title = ETitle.Playstation
     ).cachedIn(viewModelScope)
 
-//    fun setPlatform(id: Int) {
-//        _platform.value = id.toString()
-//        listOfPlatform = getPlatform(id.toString())
-//    }
+    fun setPlatform(id: Int) {
+        _platform.value = id.toString()
+        listOfPlatform = getPlatform(id.toString())
+    }
 
 }

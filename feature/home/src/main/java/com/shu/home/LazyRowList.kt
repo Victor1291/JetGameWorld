@@ -1,5 +1,6 @@
 package com.shu.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -154,14 +155,14 @@ fun LazyRowList(
                         item,
                         onItemClick = {// Проверка на какой список нажата кнопка.
 
-                            game =
-                                if (game.isEmpty()) listOf(item) else if (item.id != oldId) listOf(
-                                    item
-                                ) else emptyList()
-                            oldId = item.id ?: 0
-                            oldTitle = item.title
+//                            game =
+//                                if (game.isEmpty()) listOf(item) else if (item.id != oldId) listOf(
+//                                    item
+//                                ) else emptyList()
+//                            oldId = item.id ?: 0
+//                            oldTitle = item.title
 
-                            /*when (num) {
+                            when (num) {
 
                                 0 -> {
                                     Log.d(
@@ -179,17 +180,17 @@ fun LazyRowList(
                                     onPlatformClick(item.id ?: 7, item.title)
                                 }
 
-//                                else -> {
+                                else -> {
 //                                    listGames =
 //                                        if (listGames.isEmpty()) item.games else if (item.id != oldId) item.games else emptyList()
-//                                    game =
-//                                        if (game.isEmpty()) listOf(item) else if (item.id != oldId) listOf(
-//                                            item
-//                                        ) else emptyList()
-//                                    oldId = item.id ?: 0
-//                                    oldTitle = item.title
-//                                }
-                            }*/
+                                    game =
+                                        if (game.isEmpty()) listOf(item) else if (item.id != oldId) listOf(
+                                            item
+                                        ) else emptyList()
+                                    oldId = item.id ?: 0
+                                    oldTitle = item.title
+                                }
+                            }
                         })
                 }
             }
