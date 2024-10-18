@@ -65,7 +65,7 @@ fun ResultsDto.mapFromApi(): Game {
     }
 }
 
-fun ResultsDto.mapFromApiToBd(page: Int): GameDbo {
+fun ResultsDto.mapFromApiToBd(): GameDbo {
     return with(this) {
         GameDbo(
             id = id ?: 0,
@@ -79,7 +79,6 @@ fun ResultsDto.mapFromApiToBd(page: Int): GameDbo {
             userGame = userGame,
             shortScreenshots = shortScreenshots.map { it.mapFromApiToBd() },
             genres = genres.joinToString(",") { it.name ?: "" },
-            page = page
         )
     }
 }

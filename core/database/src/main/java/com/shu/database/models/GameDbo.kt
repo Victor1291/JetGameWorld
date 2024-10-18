@@ -8,6 +8,7 @@ import com.shu.models.Game
 @Entity(tableName = "games")
 data class GameDbo(
     @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "id")
     val id: Int,
     @ColumnInfo(name = "title")
     val title: String,
@@ -29,8 +30,6 @@ data class GameDbo(
     var shortScreenshots: List<ShortScreenshotsDbo> = listOf(),
     @ColumnInfo(name = "genres")
     var genres: String? = null,
-    @ColumnInfo(name = "page")
-    var page: Int,
 )
 
 fun GameDbo.mapFromBd(): Game {
@@ -48,7 +47,6 @@ fun GameDbo.mapFromBd(): Game {
             userGame = userGame,
             shortScreenshots = shortScreenshots.map { it.mapFromBd() },
             genres = genres,
-            page = page
         )
     }
 }

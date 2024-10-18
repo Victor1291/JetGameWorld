@@ -61,4 +61,9 @@ dependencies {
 
     //Coil
     implementation(libs.coil.compose)
+
+    //ExoPlayer
+    api(libs.exoplayer.core)
+    api(libs.exoplayer.ui)
+    api(libs.exoplayer.extension)
 }

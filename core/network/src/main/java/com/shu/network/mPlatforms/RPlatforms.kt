@@ -1,7 +1,7 @@
 package com.shu.network.mPlatforms
 
 import com.google.gson.annotations.SerializedName
-import com.shu.models.Game
+import com.shu.database.models.GameDbo
 
 data class RPlatforms(
     @SerializedName("id") var id: Int? = null,
@@ -16,16 +16,16 @@ data class RPlatforms(
 )
 
 
-fun RPlatforms.mapFromApi(): Game {
+fun RPlatforms.mapFromApi(): GameDbo {
     return with(this) {
-        Game(
+        GameDbo(
             id = id ?: 1,
             title = name ?: "NoName",
             released = yearStart ?: "",
             backgroundImage = imageBackground,
             added = 1,
             rating = 8.0,
-            games = games.map { it.mapFromApi() }
+            // games = games.map { it.mapFromApi() }
         )
     }
 }

@@ -36,6 +36,8 @@ ui-test-junit4 = "1.6.8"
 robolectric = "4.11.1"
 roborazzi = "1.7.0"
 pagingCommonAndroid = "3.3.2"
+#Exo.
+exoplayer = "2.19.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -90,6 +92,12 @@ okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 androidx-compose-foundation = { group = "androidx.wear.compose", name = "compose-foundation", version.ref = "composeFoundation" }
 androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
+
+# Exo.
+exoplayer-core = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayer" }
+exoplayer-ui = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
+exoplayer-extension = { module = "com.google.android.exoplayer:extension-mediasession", version.ref = "exoplayer" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

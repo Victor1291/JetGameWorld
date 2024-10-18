@@ -1,6 +1,7 @@
 package com.shu.network.mPlatforms
 
 import com.google.gson.annotations.SerializedName
+import com.shu.network.model.Response
 
 data class ResponsePlatforms(
     @SerializedName("count"    ) var count    : Int?               = null,
@@ -9,3 +10,11 @@ data class ResponsePlatforms(
     @SerializedName("results"  ) var results  : ArrayList<RPlatforms> = arrayListOf()
 
 )
+
+fun ResponsePlatforms.mapFromApi(): Response {
+    return with(this) {
+        Response(
+            count, next, previous, results.map { it.mapFromApi() }
+        )
+    }
+}

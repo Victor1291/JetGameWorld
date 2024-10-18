@@ -11,6 +11,8 @@ import com.shu.database.models.RemoteKeys
 import com.shu.models.ETitle
 import com.shu.models.QueryParameters
 import com.shu.network.ServiceGameApi
+import com.shu.network.mPlatforms.mapFromApi
+import com.shu.network.models2.mapFromApi
 import com.shu.network.models2.mapFromApiToBd
 import retrofit2.HttpException
 import java.io.IOException
@@ -57,8 +59,21 @@ class GamesRemoteMediator (
         }
 
         try {
-            val apiResponse = serviceGameApi.gamesGenre(page = page, genres = parameters.genres)
+            //api менять взависимости от колекции. Сначала протестировавать на 2х колекциях
+            val apiResponse =  when (title) {
 
+                ETitle.ChoiceGenre -> serviceGameApi.getGenres(page = page).mapFromApi()
+                ETitle.Genres -> serviceGameApi.gamesGenre(page = page, genres = parameters.genres).mapFromApi()
+                ETitle.Platforms -> serviceGameApi.platforms(page = page).mapFromApi()
+                ETitle.Playstation -> serviceGameApi.gamesPlatforms( page = page, platforms = parameters.platforms ).mapFromApi()
+                ETitle.Popular -> serviceGameApi.gamesPopular(page = page, ordering = "added").mapFromApi()
+                ETitle.Released -> serviceGameApi.gamesPopular(page = page, ordering = "released").mapFromApi()
+                else -> serviceGameApi.gamesDate(
+                    page = page,
+                    ordering = parameters.ordering,
+                    dates = parameters.dates
+                ).mapFromApi()
+            }
             val games = apiResponse.results
             val endOfPaginationReached = games.isEmpty()
 
@@ -69,6 +84,8 @@ class GamesRemoteMediator (
                 }
                 val prevKey = if (page > 1) page - 1 else null
                 val nextKey = if (endOfPaginationReached) null else page + 1
+
+                //сохранять таблицы с ключами для каждой коллекции и менять при переключении
                 val remoteKeys = games.map {
                     RemoteKeys(
                         gameID = it.id ?: 0,
@@ -79,7 +96,7 @@ class GamesRemoteMediator (
                 }
 
                 gameDatabase.getRemoteKeysDao().insertAll(remoteKeys)
-                gameDatabase.getGameDao().insertAll(games.map { it.mapFromApiToBd(page) })
+                gameDatabase.getGameDao().insertAll(games)
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (error: IOException) {

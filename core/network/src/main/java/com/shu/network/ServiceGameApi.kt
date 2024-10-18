@@ -1,6 +1,6 @@
 package  com.shu.network
 
-import com.shu.network.mPlatforms.ResponseGenres
+import com.shu.network.mPlatforms.ResponseGenresDto
 import com.shu.network.mPlatforms.ResponsePlatforms
 import com.shu.network.model.GameDetailsDto
 import com.shu.network.model.ScreenshotsResponse
@@ -68,7 +68,7 @@ interface ServiceGameApi {
     suspend fun getGenres(
         @Query("page") page: Int = 1,
         @Query("page_size") pageSize: Int = SIZE,
-    ): ResponseGenres
+    ): ResponseGenresDto
 
     @GET("/api/games")
     suspend fun gamesAll(

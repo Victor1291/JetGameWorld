@@ -1,6 +1,7 @@
 package com.shu.network.model
 
 import com.google.gson.annotations.SerializedName
+import com.shu.database.models.GameDbo
 import com.shu.models.Game
 
 data class GameDto(
@@ -26,3 +27,20 @@ fun GameDto.mapFromApi(): Game {
         )
     }
 }
+/*fun Game.mapFromUiToBd(page: Int): GameDbo {
+    return with(this) {
+        GameDbo(
+            id = id ,
+            title = title ,
+            released = released ,
+            backgroundImage = backgroundImage,
+            added = added,
+            rating = rating,
+            platforms = platforms,
+            clip = clip,
+            userGame = userGame,
+            shortScreenshots = shortScreenshots,
+            genres = genres,
+        )
+    }
+}*/
