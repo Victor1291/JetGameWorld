@@ -1,11 +1,11 @@
 # JetGameWorld
 
-## Android приложение for Explore RAWG Video Games Database API
+## Android aplication for Explore RAWG Video Games Database API
 
-#### _Поддержка офлайн-режима_
-#### _Для сетевого взаимодействия используется открытое API  - <code>[Rawg Video Games Api](hhttps://rawg.io/apidocs)</code>_
+#### _Offline mode support_
+#### _open API  - <code>[Rawg Video Games Api](hhttps://rawg.io/apidocs)</code>_
 
-## Стек технологий:
+## Technology Stack:
 - language Kotlin
 - UI на Jetpack Compose
 - Single Activity Application pattern
