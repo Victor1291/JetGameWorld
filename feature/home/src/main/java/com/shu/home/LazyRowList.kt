@@ -1,8 +1,10 @@
 package com.shu.home
 
 import android.util.Log
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -38,6 +40,7 @@ import com.shu.design_system.component.ItemImageCard
 import com.shu.design_system.component.ItemTextCard
 import com.shu.design_system.component.RowThreeText
 import com.shu.design_system.component.RowTwoText
+import com.shu.design_system.component.shimmerEffect
 import com.shu.models.Game
 import com.shu.models.GameShort
 import kotlinx.coroutines.delay
@@ -131,6 +134,8 @@ fun LazyRowList(
         ) {
 
             if (list.loadState.refresh == LoadState.Loading) {
+
+                //TODO сделать ShimmerEffect 
                 item {
                     Text(
                         text = "Waiting for items to load from the backend",
@@ -210,6 +215,21 @@ fun LazyRowList(
                     game.title?.let { ItemTextCard(it, onItemClick = { listGames = emptyList() }) }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun LoadingShimmerEffectItem() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        repeat(5) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .padding(16.dp)
+                    .shimmerEffect()
+            )
         }
     }
 }
